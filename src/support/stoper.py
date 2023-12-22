@@ -10,18 +10,19 @@ headers = {
 }
 
 def stoper(_sig_ign = None, _sig_dfl = None):
-    from src.support.config import mosaic_size as count
+    from src.support.starter import args
     logger.warning('stoper!')
     
+    count = int(args.mosaic)
     del_list = [flussonic_config['fluss_url'] + flussonic_config['mosaic_name']]
 
-    for num in range(int(count)):
+    for num in range(count):
         del_list.append('{url}{mosaic}_{name}_{num}'.format(
-                                                        url = flussonic_config['fluss_url'], 
-                                                        mosaic = flussonic_config['mosaic_name'], 
-                                                        name = flussonic_config['stream_name'], 
-                                                        num = num,
-                                                    ))
+                                                url = flussonic_config['fluss_url'], 
+                                                mosaic = flussonic_config['mosaic_name'], 
+                                                name = flussonic_config['stream_name'], 
+                                                num = num,
+                                            ))
 
     for url in del_list:
         del_request = requests.delete(url, headers = headers)

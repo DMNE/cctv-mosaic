@@ -43,7 +43,10 @@ def changeStream(url, text, num):
                     }
                 }
             ]
-        }
+        },
+        "on_play": {
+            "url": flussonic_config['on_play'],
+        },
     }
 
     fluss_request = requests.put(stream_url, headers = headers, json = payload)

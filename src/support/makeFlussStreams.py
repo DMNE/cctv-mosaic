@@ -18,11 +18,11 @@ headers = {
 def makeFlussStreams(cameras_count, size):
     try:
 
-        streams = 'mosaic://' + ','.join(['mosaic_us_' + flussonic_config['stream_name'] + str(num) for num in range (cameras_count)])
+        streams = 'mosaic://' + ','.join([flussonic_config['mosaic_name'] + '_' + flussonic_config['stream_name'] + '_' + str(num) for num in range (cameras_count)])
         params = [
-            'fps=25',
-            'preset=veryfast',
-            'bitrate=2048k',
+            'fps={fps}'.format(fps = flussonic_config['fps']),
+            'preset={preset}'.format(preset = flussonic_config['preset']),
+            'bitrate={bitrate}'.format(bitrate = flussonic_config['bitrate']),
             'size={size}'.format(size = size),
             'mosaic_size={cameras_count}'.format(cameras_count = cameras_count),
         ]
@@ -38,7 +38,12 @@ def makeFlussStreams(cameras_count, size):
             "inputs": [
                 {"url": streams},
             ],
-            "on_play": {}
+            "on_play": {
+                "url": flussonic_config['on_play'],
+            },
+            "pushes": [
+                {"url": flussonic_config['push']},
+            ],
         }
 
         fluss_request = requests.put(mosaic_url, headers = headers, json = payload)

@@ -14,7 +14,7 @@ parser.add_argument(
     '-v',
     '--version',
     action = 'version',
-    version = 'CCTV Mosaic Maker 1.0.0'
+    version = 'CCTV Mosaic Maker 1.0.1'
 )
 
 parser.add_argument(
